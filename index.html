@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pregnancy Due Date Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Pregnancy Due Date Calculator</h1>
+
+  <label>Is this an IVF pregnancy?</label><br>
+  <label>
+    <input type="radio" name="ivf" value="no" checked onclick="toggleInput()"> No
+  </label>
+  <label>
+    <input type="radio" name="ivf" value="yes" onclick="toggleInput()"> Yes
+  </label>
+
+  <!-- Non-IVF Section -->
+  <div id="lmp-section">
+    <label>
+      <input type="checkbox" id="unknownLMP" onclick="toggleLMP()"> Last menstrual period unknown or cycles irregular
+    </label>
+
+    <div id="lmp-input">
+      <label for="lmp">First Day of Last Period:</label>
+      <input type="date" id="lmp">
+    </div>
+
+    <br><br>
+
+    <label>
+      <input type="checkbox" id="noUltrasound" onclick="toggleUltrasound()"> No ultrasound performed
+    </label>
+
+    <div id="ultrasound-section">
+      <br>
+      <label for="ultraDate">Date First Ultrasound Was Performed:</label>
+      <input type="date" id="ultraDate">
+
+      <br><br>
+
+      <label>
+        Gestational Age at Ultrasound 
+        <small>(based on fetal measurements at that scan)</small>
+        <!-- ✅ Corrected info icon -->
+        <span class="tooltip-icon" onclick="openModal()">&#9432;</span> 
+      </label><br>
+      <input type="number" id="ultraWeeks" min="0" placeholder="Weeks">
+      <input type="number" id="ultraDays" min="0" max="6" placeholder="Days (0-6)">
+    </div>
+  </div>
+
+  <!-- IVF Section -->
+  <div id="ivf-section" style="display: none;">
+    <label for="transfer">Embryo Transfer Date:</label>
+    <input type="date" id="transfer"><br><br>
+
+    <label for="transfer-day">Transfer Type:</label>
+    <select id="transfer-day">
+      <option value="5" selected>Day 5 Transfer</option>
+      <option value="3">Day 3 Transfer</option>
+    </select>
+  </div>
+
+  <br><br>
+  <button onclick="handleCalculate()">Calculate Due Date</button>
+
+  <p id="result"></p>
+
+  <hr style="margin-top:30px;">
+
+  <div style="font-size:14px; max-width:600px; margin:20px auto; text-align:left; background:#f9f9f9; padding:15px; border-radius:8px;">
+    <strong>About this calculator:</strong><br><br>
+    This tool estimates pregnancy due dates using the first day of the last menstrual period (LMP), ultrasound findings, or embryo transfer date for IVF pregnancies.  
+    It follows the dating recommendations from the American College of Obstetricians and Gynecologists (ACOG).  
+    <br><br>
+    <em>Reference:</em><br>
+    <a href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2017/05/methods-for-estimating-the-due-date" target="_blank">
+      ACOG Committee Opinion No. 700. Methods for Estimating the Due Date. Obstetrics & Gynecology. May 2017.
+    </a>
+  </div>
+
+  <!-- ✅ Updated Popup Modal -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>ACOG Redating Guidelines</h3>
+
+      <ul style="text-align:left; padding-left:18px; line-height:1.6;">
+        <li>If gestational age is &le; 8w6d by LMP &rarr; Redate by ultrasound if dating by ultrasound is <strong>more than 5 days</strong> different</li>
+        <li>If gestational age is 9w0d &ndash; 15w6d by LMP &rarr; Redate by ultrasound if dating by ultrasound is <strong>more than 7 days</strong> different</li>
+        <li>If gestational age is 16w0d &ndash; 21w6d by LMP &rarr; Redate by ultrasound if dating by ultrasound is <strong>more than 10 days</strong> different</li>
+        <li>If gestational age is 22w0d &ndash; 27w6d by LMP &rarr; Redate by ultrasound if dating by ultrasound is <strong>more than 14 days</strong> different</li>
+        <li>If gestational age is &ge; 28w0d by LMP &rarr; Redate by ultrasound if dating by ultrasound is <strong>more than 21 days</strong> different</li>
+      </ul>
+
+      <h4>Fetal Measurement Guide</h4>
+      <ul style="text-align:left; padding-left:18px; line-height:1.6;">
+        <li>Use crown-rump length if 84 mm or less.</li>
+        <li>If greater than 84 mm, use composite of fetal biometric measurements.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("infoModal").style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("infoModal").style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target === document.getElementById("infoModal")) {
+        closeModal();
+      }
+    };
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
